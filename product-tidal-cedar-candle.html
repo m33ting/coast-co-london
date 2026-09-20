@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tidal Cedar Candle – Coast & Co London</title>
+  <style>
+    :root{
+      --mist:#dce6ef; --cream:#f8f7f3; --sand:#d4c7b4; --ink:#292a2b;
+      --muted:#6d7175; --white:#fff; --line:rgba(41,42,43,.12);
+      --shadow:0 18px 55px rgba(41,42,43,.10);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+      color:var(--ink);background:var(--cream);line-height:1.65}
+    a{color:inherit;text-decoration:none}
+    header{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;
+      gap:2rem;padding:1rem clamp(1.25rem,6vw,6rem);background:rgba(248,247,243,.88);
+      backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+    .header-logo{height:54px;width:auto;display:block}
+    nav{display:flex;align-items:center;gap:clamp(1rem,2.5vw,2rem);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase}
+    nav>a,.nav-dropdown>a{padding:.5rem 0;position:relative}
+    nav>a::after,.nav-dropdown>a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--ink);transition:.25s}
+    nav>a:hover::after,.nav-dropdown:hover>a::after{width:100%}
+    .nav-dropdown{position:relative}
+    .nav-dropdown-menu{position:absolute;top:calc(100% + .8rem);left:-1rem;min-width:205px;padding:.55rem;
+      background:var(--white);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);
+      opacity:0;visibility:hidden;transform:translateY(-6px);transition:.2s}
+    .nav-dropdown:hover .nav-dropdown-menu{opacity:1;visibility:visible;transform:none}
+    .nav-dropdown-menu a{display:block;padding:.65rem .75rem;border-radius:9px;font-size:.76rem;letter-spacing:.04em;text-transform:none}
+    .nav-dropdown-menu a:hover{background:var(--mist)}
+    main{max-width:1180px;margin:auto;padding:clamp(2rem,6vw,5rem) clamp(1.25rem,5vw,3rem)}
+    .breadcrumbs{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:2rem}
+    .breadcrumbs a:hover{text-decoration:underline}
+    .product{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(360px,.92fr);gap:clamp(2.5rem,7vw,6rem);align-items:start}
+    .product-image{background:linear-gradient(145deg,#e8eef3,#f5f4ef);border-radius:28px;min-height:590px;
+      display:grid;place-items:center;padding:2.5rem;box-shadow:var(--shadow);overflow:hidden}
+    .product-image img{width:min(100%,570px);height:auto;max-height:590px;object-fit:contain;filter:drop-shadow(0 25px 28px rgba(0,0,0,.14))}
+    .eyebrow{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem}
+    h1{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:clamp(2.5rem,5vw,4.4rem);line-height:1.02;letter-spacing:-.025em;margin-bottom:1rem}
+    .price{font-family:Georgia,serif;font-size:1.65rem;margin-bottom:.3rem}
+    .ean{font-size:.72rem;letter-spacing:.08em;color:var(--muted);margin-bottom:2.2rem}
+    .intro{font-size:1.08rem;color:#45484b;max-width:48ch;margin-bottom:2.4rem}
+    .detail{padding:1.45rem 0;border-top:1px solid var(--line)}
+    .detail:last-of-type{border-bottom:1px solid var(--line)}
+    .detail h2{font-size:.75rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.8rem}
+    .detail p,.detail li{color:#55595d;font-size:.94rem}
+    .detail ul{list-style:none;display:grid;gap:.55rem}
+    .detail li{padding-left:1.25rem;position:relative}
+    .detail li::before{content:"•";position:absolute;left:.1rem;color:#9b8b78}
+    .add-to-cart{width:100%;margin-top:1.7rem;padding:1.05rem 1.5rem;border:1px solid var(--ink);
+      border-radius:999px;background:var(--ink);color:var(--white);font-size:.78rem;font-weight:600;
+      letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:.25s}
+    .add-to-cart:hover{background:#454647;transform:translateY(-2px);box-shadow:0 10px 25px rgba(0,0,0,.12)}
+    .also{margin-top:6rem}
+    .section-heading{display:flex;justify-content:space-between;align-items:end;margin-bottom:1.5rem}
+    .section-heading h2{font-family:Georgia,serif;font-size:2rem;font-weight:400}
+    .related{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+    .related-item{background:var(--white);border-radius:18px;padding:1rem;transition:.25s;box-shadow:0 8px 30px rgba(0,0,0,.05)}
+    .related-item:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+    .related-item img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:12px;background:#eef1f3;margin-bottom:.8rem}
+    .related-item a{display:block;font-family:Georgia,serif;font-size:1.05rem;padding:.2rem}
+    footer{margin-top:5rem;padding:2.2rem clamp(1.25rem,6vw,6rem);border-top:1px solid var(--line);
+      background:var(--white);display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}
+    .footer-logo{height:48px;width:auto}
+    .footer-links{display:flex;gap:.7rem;flex-wrap:wrap}
+    .button{display:inline-flex;padding:.7rem 1.1rem;border:1px solid var(--line);border-radius:999px;
+      font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;background:var(--cream)}
+    .button:hover{background:var(--mist)}
+    .copyright{font-size:.76rem;color:var(--muted)}
+    @media(max-width:820px){
+      header{padding:.9rem 1.1rem}.header-logo{height:46px}nav{gap:.8rem;font-size:.68rem}
+      .product{grid-template-columns:1fr}.product-image{min-height:420px}
+      .also{margin-top:4rem}
+    }
+    @media(max-width:560px){
+      nav{display:none}main{padding-top:1.5rem}.product-image{min-height:350px;padding:1.5rem;border-radius:20px}
+      .related{grid-template-columns:1fr}.related-item{display:grid;grid-template-columns:110px 1fr;gap:.8rem;align-items:center}
+      .related-item img{margin:0}.also{margin-top:3rem}footer{align-items:flex-start}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <a href="index.html" aria-label="Coast & Co London home"><img src="logo.png" alt="Coast & Co London" class="header-logo"></a>
+  <nav aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <div class="nav-dropdown">
+      <a href="collection.html">Collection</a>
+      <div class="nav-dropdown-menu">
+        <a href="candles.html">Candles</a><a href="blankets-throws.html">Blankets / Throws</a>
+        <a href="pillows.html">Pillows</a><a href="soaps.html">Soaps</a><a href="mugs.html">Mugs</a>
+        <a href="table-runners.html">Table Runners</a><a href="vases.html">Vases</a><a href="trays.html">Trays</a>
+      </div>
+    </div>
+    <a href="our-story.html">Our Story</a>
+  </nav>
+</header>
+
+<main>
+  <div class="breadcrumbs"><a href="collection.html">Collection</a> &nbsp;/&nbsp; Candles &nbsp;/&nbsp; tidal cedar</div>
+  <section class="product">
+    <div class="product-image">
+      <img src="tidal-cedar-product-photo.png" width="570" height="500" alt="Tidal Cedar Candle">
+    </div>
+    <div class="product-info">
+      <div class="eyebrow">Coast & Co London · Candles</div>
+      <h1>Tidal Cedar Candle</h1>
+      <div class="price">£25.00</div>
+      <div class="ean">EAN · 5012345600081</div>
+      <p class="intro">Cedarwood, salt spray and bergamot for crisp coastal wood.</p>
+
+      <div class="detail">
+        <h2>Ingredients &amp; Materials</h2>
+        <ul>
+          <li>Soy wax</li><li>Coconut wax</li><li>Cotton wick</li><li>Bergamont &amp; salt spray fragrance oil</li>
+        </ul>
+      </div>
+      <div class="detail">
+        <h2>Care Instructions</h2>
+        <ul>
+          <li>Trim wick to 5mm before each burn</li><li>Allow a full melt pool to prevent tunnelling</li>
+          <li>Burn for 2–3 hours at a time</li><li>Keep away from drafts, curtains, and flammable objects</li>
+          <li>Always place on a heat-safe, level surface</li><li>Do not burn for more than 4 hours</li>
+          <li>Never leave a candle unattended</li><li>Extinguish fully before sleeping</li>
+          <li>Keep out of reach of children and pets</li>
+        </ul>
+      </div>
+      <button class="add-to-cart" onclick="addToCart({
+        id:'COAST-CAN-CEDAR-08',title:'Tidal Cedar Candle',price:'25.00',
+        image:'tidal-cedar-product-photo.png',category:'Candles',ean:'5012345600081'
+      })">Add to Cart</button>
+    </div>
+  </section>
+
+  <section class="also">
+    <div class="section-heading"><h2>You May Also Like</h2></div>
+    <div class="related">
+      <div class="related-item"><img src="harbour-dusk-product-photo.png" alt="Harbour Dusk Candle"><a href="product-harbour-dusk-candle.html">Harbour Dusk Candle — £23</a></div>
+      <div class="related-item"><img src="driftwood-mist-product-photo.png" alt="Driftwood Mist Candle"><a href="product-driftwood-mist-candle.html">Driftwood Mist Candle — £24</a></div>
+      <div class="related-item"><img src="moonlit-shore-product-photo.png" alt="Moonlit Shore Candle"><a href="product-moonlit-shore-candle.html">Moonlit Shore Candle — £20</a></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <img src="logo.png" alt="Coast & Co London" class="footer-logo">
+  <div class="footer-links"><a href="mailing-list.html" class="button">Join The Tide</a><a href="basket.html" class="button">Basket</a></div>
+  <div class="copyright">© Coast & Co London</div>
+</footer>
+
+<script>
+function addToCart(product){
+  const CART_KEY="coastCoCart";
+  let cart=[];
+  try{cart=JSON.parse(localStorage.getItem(CART_KEY)||"[]")}catch(e){cart=[]}
+  if(!Array.isArray(cart))cart=[];
+  const id=product.id||product.ean||product.title;
+  const existing=cart.find(item=>item.id===id);
+  if(existing){existing.quantity=(Number(existing.quantity)||1)+1}
+  else{cart.push({id,name:product.title,price:Number(String(product.price).replace(/[^0-9.]/g,""))||0,
+    image:product.image||"",category:product.category||"",ean:product.ean||"",url:window.location.pathname,quantity:1})}
+  localStorage.setItem(CART_KEY,JSON.stringify(cart));
+  window.location.href="basket.html";
+}
+</script>
+</body>
+</html>

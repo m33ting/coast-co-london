@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Your Basket | Coast & Co London</title>
+<style>
+:root{
+  --ink:#273238;--muted:#718087;--paper:#f7f5ef;--white:#fff;
+  --line:#d9dfdc;--blue:#dce8e8;--beige:#e9e1d5;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px Arial,Helvetica,sans-serif}
+header{
+  padding:34px 6vw 28px;
+  background:linear-gradient(135deg,var(--blue),var(--paper) 60%,var(--beige));
+  border-bottom:1px solid var(--line)
+}
+.wrap{max-width:1050px;margin:auto}
+.top{display:flex;justify-content:space-between;align-items:center;gap:20px}
+.brand{text-decoration:none;color:var(--ink)}
+.eyebrow{font-size:10px;letter-spacing:.2em;font-weight:bold;margin:0 0 5px}
+.brand h1{font:500 34px Georgia,serif;margin:0}
+.continue{color:var(--ink);text-decoration:none;border:1px solid var(--line);background:#ffffffaa;padding:10px 15px}
+main{max-width:1050px;margin:auto;padding:38px 6vw 70px}
+.title{font:500 42px Georgia,serif;margin:0 0 8px}
+.subtitle{color:var(--muted);margin:0 0 30px}
+.layout{display:grid;grid-template-columns:1fr 320px;gap:28px;align-items:start}
+.cart{background:var(--white);border:1px solid var(--line)}
+.cart-head{padding:17px 20px;border-bottom:1px solid var(--line);font-weight:bold}
+.item{
+  display:grid;grid-template-columns:100px 1fr auto;gap:18px;
+  padding:20px;border-bottom:1px solid var(--line);align-items:center
+}
+.item:last-child{border-bottom:0}
+.photo{
+  width:100px;height:100px;
+  background:linear-gradient(145deg,#e4eceb,#eee8de);
+  display:grid;place-items:center;color:#77858a;
+  font:12px Georgia,serif;letter-spacing:.12em
+}
+.name{font:500 20px Georgia,serif;margin:0 0 5px}
+.meta{color:var(--muted);font-size:13px;margin-bottom:12px}
+.price{font-weight:bold}
+.controls{display:flex;align-items:center;gap:10px;margin-top:12px}
+.qty{
+  display:flex;align-items:center;border:1px solid var(--line);width:max-content
+}
+.qty button{border:0;background:transparent;width:32px;height:30px;font-size:18px;cursor:pointer;color:var(--ink)}
+.qty span{min-width:30px;text-align:center}
+.remove{border:0;background:none;color:var(--muted);text-decoration:underline;cursor:pointer;padding:4px}
+.line-total{text-align:right;font-weight:bold;white-space:nowrap}
+.summary{background:var(--white);border:1px solid var(--line);padding:22px;position:sticky;top:20px}
+.summary h2{font:500 25px Georgia,serif;margin:0 0 20px}
+.row{display:flex;justify-content:space-between;padding:9px 0;color:#536269}
+.row.total{border-top:1px solid var(--line);margin-top:10px;padding-top:17px;color:var(--ink);font-size:19px;font-weight:bold}
+.checkout{
+  width:100%;border:0;background:var(--ink);color:white;padding:14px;
+  font-weight:bold;font-size:15px;margin-top:18px;cursor:pointer
+}
+.checkout:hover{opacity:.9}
+.empty{text-align:center;padding:65px 25px}
+.empty h2{font:500 30px Georgia,serif;margin:0 0 10px}
+.empty p{color:var(--muted);margin-bottom:22px}
+.shop{
+  display:inline-block;background:var(--ink);color:white;text-decoration:none;
+  padding:13px 20px;font-weight:bold
+}
+.notice{font-size:12px;color:var(--muted);margin-top:14px;line-height:1.5}
+@media(max-width:760px){
+  .layout{grid-template-columns:1fr}
+  .summary{position:static}
+  .item{grid-template-columns:75px 1fr}
+  .photo{width:75px;height:75px}
+  .line-total{grid-column:2;text-align:left}
+  .top{align-items:flex-start}
+}
+.checkout {
+  display:block;
+  text-align:center;
+  text-decoration:none;
+  width:100%;
+  border:0;
+  background:var(--ink);
+  color:white;
+  padding:14px;
+  font-weight:bold;
+  font-size:15px;
+  margin-top:18px;
+  cursor:pointer;
+}
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap top">
+    <a class="brand" href="index.html">
+      <p class="eyebrow">COAST & CO LONDON</p>
+      <h1>Your Basket</h1>
+    </a>
+      <img src="logo.png" width="100" height="100" alt="Coast & Co London Logo" wigthclass="header-logo">
+    <a class="continue" href="index.html">Continue shopping</a>
+  </div>
+</header>
+
+<main>
+  <h2 class="title">Your Basket</h2>
+  <p class="subtitle">Review your selected pieces before checkout.</p>
+
+  <div class="layout">
+    <section class="cart">
+      <div class="cart-head" id="count">Your items</div>
+      <div id="items"></div>
+      <div id="empty" class="empty" hidden>
+        <h2>Your basket is empty</h2>
+        <p>When you add products, they'll appear here ready for checkout.</p>
+        <a class="shop" href="index.html">Shop the collection</a>
+      </div>
+    </section>
+
+    <aside class="summary">
+      <h2>Order Summary</h2>
+      <div class="row"><span>Subtotal</span><span id="subtotal">£0.00</span></div>
+      <div class="row"><span>Delivery</span><span id="delivery">£0.00</span></div>
+      <div class="row total"><span>Total</span><span id="total">£0.00</span></div>
+      <a class="checkout" id="checkout" href="checkout.html">Proceed to checkout</a>
+    </aside>
+  </div>
+</main>
+
+<script>
+/*
+  PRODUCT-PAGE INTEGRATION
+
+  When a customer clicks "Add to basket" on a product page, store an item like:
+
+  {
+    id: "salt-air-candle",
+    name: "Salt Air Candle",
+    price: 19,
+    quantity: 1,
+    image: "images/salt-air-candle.jpg",
+    category: "Candles",
+    url: "products/salt-air-candle.html"
+  }
+
+  under localStorage key: "coastCoCart"
+
+  Example:
+    const cart = JSON.parse(localStorage.getItem("coastCoCart") || "[]");
+    cart.push({...});
+    localStorage.setItem("coastCoCart", JSON.stringify(cart));
+*/
+
+const CART_KEY = "coastCoCart";
+
+function getCart(){
+  try {
+    const cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+    return Array.isArray(cart) ? cart : [];
+  } catch(e) {
+    return [];
+  }
+}
+
+function saveCart(cart){
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+}
+
+function money(value){
+  return new Intl.NumberFormat("en-GB", {
+    style:"currency", currency:"GBP"
+  }).format(Number(value) || 0);
+}
+
+function render(){
+  const cart = getCart();
+  const items = document.getElementById("items");
+  const empty = document.getElementById("empty");
+  const count = document.getElementById("count");
+
+  items.innerHTML = "";
+
+  if(!cart.length){
+    items.hidden = true;
+    empty.hidden = false;
+    count.textContent = "0 items";
+    document.getElementById("subtotal").textContent = "£0.00";
+    document.getElementById("total").textContent = "£0.00";
+    document.getElementById("checkout").disabled = true;
+    document.getElementById("checkout").style.opacity = ".45";
+    return;
+  }
+
+  items.hidden = false;
+  empty.hidden = true;
+  document.getElementById("checkout").disabled = false;
+  document.getElementById("checkout").style.opacity = "1";
+
+  const totalQuantity = cart.reduce((sum,item)=>sum + (Number(item.quantity)||1),0);
+  count.textContent = `${totalQuantity} ${totalQuantity === 1 ? "item" : "items"}`;
+
+  let subtotal = 0;
+
+  cart.forEach((item,index)=>{
+    const quantity = Math.max(1, Number(item.quantity)||1);
+    const price = Number(item.price)||0;
+    const lineTotal = price * quantity;
+    subtotal += lineTotal;
+
+    const article = document.createElement("article");
+    article.className = "item";
+
+    const photo = document.createElement("div");
+    photo.className = "photo";
+    if(item.image){
+      photo.style.backgroundImage = `url("${item.image}")`;
+      photo.style.backgroundSize = "cover";
+      photo.style.backgroundPosition = "center";
+      photo.textContent = "";
+    } else {
+      photo.textContent = "COAST & CO";
+    }
+
+    const details = document.createElement("div");
+    details.innerHTML = `
+      <h3 class="name">${escapeHtml(item.name || "Coast & Co product")}</h3>
+      <div class="meta">${escapeHtml(item.category || "")}</div>
+      <div class="price">${money(price)}</div>
+      <div class="controls">
+        <div class="qty">
+          <button type="button" aria-label="Decrease quantity">−</button>
+          <span>${quantity}</span>
+          <button type="button" aria-label="Increase quantity">+</button>
+        </div>
+        <button class="remove" type="button">Remove</button>
+      </div>
+    `;
+
+    const buttons = details.querySelectorAll(".qty button");
+    buttons[0].addEventListener("click",()=>{
+      if(quantity <= 1){
+        cart.splice(index,1);
+      } else {
+        cart[index].quantity = quantity - 1;
+      }
+      saveCart(cart); render();
+    });
+    buttons[1].addEventListener("click",()=>{
+      cart[index].quantity = quantity + 1;
+      saveCart(cart); render();
+    });
+    details.querySelector(".remove").addEventListener("click",()=>{
+      cart.splice(index,1);
+      saveCart(cart); render();
+    });
+
+    const line = document.createElement("div");
+    line.className = "line-total";
+    line.textContent = money(lineTotal);
+
+    article.append(photo,details,line);
+    items.appendChild(article);
+  });
+
+  const delivery = 3.75;
+  document.getElementById("subtotal").textContent = money(subtotal);
+  document.getElementById("delivery").textContent = money(delivery);
+  document.getElementById("total").textContent = money(subtotal + delivery);
+}
+
+function escapeHtml(value){
+  return String(value).replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[c]));
+}
+
+document.getElementById("checkout").addEventListener("click",()=>{
+  const cart = getCart();
+  if(!cart.length) return;
+  alert("Checkout is ready to connect to your payment system.");
+});
+
+render();
+</script>
+
+<style>
+    /* FOOTER */
+    footer {
+      padding: 2rem 8%;
+      font-size: 0.8rem;
+      color: var(--charcoal);
+      border-top: 1px solid rgba(42,42,42,0.12);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      background: #ffffff;
+      align-items: center;
+    }
+
+    .footer-logo {
+      height: 50px;
+      width: auto;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.08));
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      header {
+        padding: 1.2rem 6%;
+      }
+      section {
+        padding: 2.8rem 6%;
+      }
+</style>
+<!-- FOOTER WITH LOGO -->
+<footer>
+      <img src="logo.png" width="100" height="100" alt="Coast & Co London Logo" wigthclass="header-logo">
+<div><a href="mailing-list.html" class="button">Join The Tide</a></div>
+<div><a href="basket.html" class="button">Basket</a></div>
+  <div>© Coast & Co London</div>
+  <div>Made in London, inspired by the coast.</div>
+</footer>
+
+</body>
+</html>
